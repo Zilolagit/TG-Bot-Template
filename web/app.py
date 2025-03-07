@@ -4,7 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette_admin.contrib.sqla import Admin, ModelView
 
 from db import db
-from db.models import Category, Product
+from db.models import Category, User, Menu
 
 from web.provider import UsernameAndPasswordProvider
 
@@ -16,7 +16,8 @@ admin = Admin(db._engine,
               middlewares=[Middleware(SessionMiddleware, secret_key="sdgfhjhhsfdghn")]
               )
 
+admin.add_view(ModelView(User))
 admin.add_view(ModelView(Category))
-admin.add_view(ModelView(Product))
+admin.add_view(ModelView(Menu))
 
 admin.mount_to(app)

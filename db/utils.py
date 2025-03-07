@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, func, text
+from sqlalchemy import Column, DateTime, Integer, func, text, BigInteger
 from sqlalchemy import delete as sqlalchemy_delete
 from sqlalchemy import update as sqlalchemy_update
 from sqlalchemy.future import select
@@ -71,6 +71,6 @@ class CreatedModel(Base, AbstractClass):
         return cls.__name__.lower() + 's'
 
     __abstract__ = True
-    id = Column(Integer,primary_key=True,autoincrement=True)
+    id = Column(BigInteger,primary_key=True,autoincrement=True)
     created_at = Column(DateTime(timezone=True), server_default=text(tz))
     updated_at = Column(DateTime(timezone=True), server_default=text(tz),onupdate=func.now())

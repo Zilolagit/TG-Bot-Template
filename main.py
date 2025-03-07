@@ -10,8 +10,8 @@ from bot.dispatchers import TOKEN, dp
 from bot.handlers import *
 
 async def main() -> None:
-    # i18n = I18n(path="locales", default_locale="en", domain="messages")
-    # dp.update.middleware(FSMI18nMiddleware(i18n))
+    i18n = I18n(path="locales", default_locale="en", domain="messages")
+    dp.update.middleware(FSMI18nMiddleware(i18n))
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await dp.start_polling(bot)
 

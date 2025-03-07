@@ -1,0 +1,36 @@
+
+
+
+services:
+  bot:
+    build: .
+    image: food-bot:alpine
+    container_name: food_container
+    restart: always
+    command: "sh -c 'python3 main.py'"
+    depends_on:
+      - db
+  db:
+    image: postgres:alpine
+    container_name: food_pg
+    restart: always
+    environment:
+      POSTGRES_PASSWORD : zilola*2008
+    ports:
+      - "5434:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql
+  web:
+    build: .
+    image: food-web:alpine
+    container_name: food_web
+    restart: always
+    command: "uvicorn web.app:app --host web --port 8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+
+volumes:
+  pg_data:
